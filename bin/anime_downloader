@@ -1,17 +1,20 @@
 #!/bin/bash
 script_directory_path="${0%/*}"
 script_name="${0##*/}"
-configuration_name="${script_name/\.sh/.cfg}"
-save_path="$script_directory_path/animes"
-anime_names=($(< $script_directory_path/anime_names))
+home_directory="/home/anime"
+configuration_directory="${home_directory}/etc/${script_name}"
+configuration_file="${script_name/%/.conf}"
+declare -a anime_name_list
+anime_name_list=($(< ${configuration_directory}/anime_name.list))
+episode_information_directory="${configuration_directory}/episode_information"
 
-bash "$script_directory_path/rss_feed.sh"
-source "$script_directory_path/$configuration_name"
+/bin/bash "${script_directory_path}/fetch_rss_feed.sh"
+source "${configuration_directory}/${configuration_file}"
 
-for i in "${anime_names[@]}"
+for i in "${anime_name_list[@]}"
 do
     anime_name="$i"
-    anime_save_path="$save_path/$anime_name"
+    anime_save_path="$episode_information_directory/$anime_name"
     rss_output_file="$rss_output_path/rss_output_$anime_name"
 
     if [[ -f $rss_output_file ]]
@@ -62,7 +65,7 @@ do
 
         grep "<title>" $rss_output_file | head -n $episode_count | sed "s/.*$anime_name_delimiter\([0-9]\{1,$episode_character_count\}\).*/\1/" > $episode_numbers_file
         awk -F "$link_delimiter" '/<link>/ { print $2 }' $rss_output_file | head -n $episode_count > $episode_links_file
-        episode_count=$(awk '/episode_count=/ { print NR }' "$script_directory_path/$configuration_name")
+        episode_count=$(awk '/episode_count=/ { print NR }' "$configuration_directory/$configuration_file")
 
         j=0
         for k in `cat $episode_links_file`
