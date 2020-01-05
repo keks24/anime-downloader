@@ -1,0 +1,2 @@
+# ignore further episode information files
+etc/anime_downloader/episode_information/*
