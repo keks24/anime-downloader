@@ -1,0 +1,6 @@
+refactor code
+    improve awk command
+    handle special characters for anime names like "w'z" (w%27z)
+
+file locations
+    place the configuration files to their respective directory "/usr/local/etc/"
