@@ -5,7 +5,7 @@ home_directory="/home/anime"
 configuration_directory="${home_directory}/etc/anime_downloader"
 configuration_file="${script_name/\.sh/.conf}"
 declare -a anime_name_list
-anime_name_list=($(< ${configuration_directory}/anime_name_list))
+anime_name_list=($(< ${configuration_directory}/anime_name.list))
 
 source "${configuration_directory}/${configuration_file}"
 
