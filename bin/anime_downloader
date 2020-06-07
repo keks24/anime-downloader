@@ -8,7 +8,7 @@ declare -a anime_name_list
 anime_name_list=($(< ${configuration_directory}/anime_name.list))
 episode_information_directory="${configuration_directory}/episode_information"
 
-/bin/bash "${script_directory_path}/fetch_rss_feed.sh"
+/bin/bash "${script_directory_path}/fetch_rss_feed"
 source "${configuration_directory}/${configuration_file}"
 
 for i in "${anime_name_list[@]}"
