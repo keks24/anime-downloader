@@ -3,7 +3,7 @@ script_directory_path="${0%/*}"
 script_name="${0##*/}"
 home_directory="/home/anime"
 configuration_directory="${home_directory}/etc/${script_name}"
-configuration_file="${script_name/%/.conf}"
+configuration_file="${script_name}.conf"
 declare -a anime_name_list
 anime_name_list=($(< ${configuration_directory}/anime_name.list))
 episode_information_directory="${configuration_directory}/episode_information"
